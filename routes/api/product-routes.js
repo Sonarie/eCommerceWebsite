@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ["id", "catergory_name"],
+        attributes: ["id", "category_name"],
       },
       {
         model: Tag,
@@ -21,46 +21,6 @@ router.get("/", (req, res) => {
     ],
   })
     .then((dbProductData) => res.json(dbProductData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-  Category.findAll({
-    attributes: ["id", "category_name"],
-  })
-    .then((dbcategoryData) => res.json(dbcategoryData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-  Product.findAll({
-    attributes: ["id", "product_name", "price", "stock", "category_id"],
-    where: {
-      id: req.params.category_name,
-    },
-    include: [
-      {
-        model: Category,
-        attributes: ["id", "catergory_name"],
-      },
-      {
-        model: Tag,
-        attributes: ["id", "tag_name"],
-      },
-    ],
-  })
-    .then((dbProductData) => {
-      if (!dbProductData) {
-        res.status(404).json({ message: "No product found with this id" });
-        return;
-      }
-      res.json(dbProductData);
-    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -79,7 +39,7 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ["id", "catergory_name"],
+        attributes: ["id", "category_name"],
       },
       {
         model: Tag,
